@@ -463,6 +463,9 @@ func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	}
 
 	path := req.URL.Path
+	if req.URL.RawPath != "" {
+		path = req.URL.RawPath
+	}
 
 	if root := r.trees[req.Method]; root != nil {
 		if handle, ps, tsr := root.getValue(path, r.getParams); handle != nil {
